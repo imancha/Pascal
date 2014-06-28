@@ -1,0 +1,15 @@
+[Project]
+FileName=D:\Documents\iProject\Pascal\Mahasiswa\Mahasiswa.dp
+Name=Mahasiswa
+MainUnit=D:\Documents\iProject\Pascal\Mahasiswa\source.pas
+UnitCount=1
+ResFiles=D:\Documents\iProject\Pascal\Mahasiswa\rsrc.rc
+NoConsole=0
+IsDll=0
+Icon=D:\Pictures\Icon\Smile.ico
+CompilerOptions=
+IncludeDirs=
+ObjFile=
+[Unit1]
+FileName=D:\Documents\iProject\Pascal\Mahasiswa\source.pas
+FileTime=1100775574

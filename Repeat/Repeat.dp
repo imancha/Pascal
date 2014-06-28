@@ -1,0 +1,15 @@
+[Project]
+FileName=D:\Documents\iProject\Pascal\Repeat\Repeat.dp
+Name=Repeat
+MainUnit=D:\Documents\iProject\Pascal\Repeat\source.pas
+UnitCount=1
+ResFiles=C:\Users\Imancha\Documents\iProject\Pascal\Repeat\rsrc.rc
+NoConsole=0
+IsDll=0
+Icon=C:\Users\Imancha\Pictures\IcOn\Blue Sphere.ico
+CompilerOptions=
+IncludeDirs=
+ObjFile=
+[Unit1]
+FileName=D:\Documents\iProject\Pascal\Repeat\source.pas
+FileTime=1096587472

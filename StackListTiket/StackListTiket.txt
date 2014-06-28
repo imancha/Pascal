@@ -1,0 +1,194 @@
+program stacklisttiket;
+uses crt;
+
+type
+    RecordIsi = record
+                nokursi    : integer;
+                nama       : string;
+                alamat     : string;
+                nohape     : string;
+                kodetujuan : string;
+                tujuan     : string;
+                kodekelas  : integer;
+                kelas      : string;
+                harga      : integer;
+                end;
+
+    RIsi = RecordIsi;
+
+    Pointer = ^Stack;
+    Stack = record
+            info : RIsi;
+            next : Pointer;
+            end;
+
+var
+   Top      : Pointer;
+   databaru : RIsi;
+   elemen   : RIsi;
+   pil      : integer;
+
+   function Kosong(list:Pointer):boolean;
+   begin
+        Kosong:=false;
+        if(list = nil)
+          then
+              Kosong:=true;
+   end;
+
+   Procedure Inisialisasi(var Top:Pointer);
+   begin
+        Top:=nil;
+   end;
+
+   Procedure Isi(var databaru:RIsi);
+   begin
+        clrscr();
+        writeln('INPUT DATA PEMBELI');
+        writeln('------------------');
+        write('Nomor Kursi : '); readln(databaru.nokursi);
+        write('Nama        : '); readln(databaru.nama);
+        write('Alamat      : '); readln(databaru.alamat);
+        write('No. HP      : '); readln(databaru.nohape);
+
+        repeat
+              write('Kode Tujuan : '); readln(databaru.kodetujuan);
+              databaru.kodetujuan:=upcase(databaru.kodetujuan);
+        until(databaru.kodetujuan = 'CRB') or (databaru.kodetujuan = 'BDG') or (databaru.kodetujuan = 'JKT');
+
+        if(databaru.kodetujuan = 'CRB')
+          then
+              databaru.tujuan:='Cirebon'
+          else
+              if(databaru.kodetujuan = 'BDG')
+                then
+                    databaru.tujuan:='Bandung'
+                else
+                    databaru.tujuan:='Jakarta';
+
+        repeat
+              write('Kode Kelas  : '); readln(databaru.kodekelas);
+        until(databaru.kodekelas > 0) and (databaru.kodekelas < 4);
+
+        case (databaru.kodekelas) of
+             1: databaru.kelas:='Eksekutif';
+             2: databaru.kelas:='Bisnis';
+             3: databaru.kelas:='Ekonomi';
+        end;
+		
+		if(databaru.kodetujuan = 'CRB')
+          then
+              begin
+                   case (databaru.kodekelas) of
+                        1: databaru.harga:=100000;
+                        2: databaru.harga:=80000;
+                        3: databaru.harga:=50000;
+                   end;
+              end
+          else
+              if(databaru.kodetujuan = 'BDG')
+                then
+                    begin
+                         case (databaru.kodekelas) of
+                              1: databaru.harga:=150000;
+                              2: databaru.harga:=100000;
+                              3: databaru.harga:=80000;
+                         end;
+                    end
+                else
+                    if(databaru.kodetujuan = 'JKT')
+                      then
+                          begin
+                               case (databaru.kodekelas) of
+                                    1: databaru.harga:=200000;
+                                    2: databaru.harga:=150000;
+                                    3: databaru.harga:=100000;
+                               end;
+                          end;
+   end;
+
+   Procedure Output(data:RIsi);
+   begin
+        writeln('Nomor Kursi : ',data.nokursi);
+        writeln('Nama        : ',data.nama);
+        writeln('Alamat      : ',data.alamat);
+        writeln('No. HP      : ',data.nohape);
+        writeln('Tujuan      : ',data.tujuan);
+        writeln('Kelas       : ',data.kelas);
+        writeln('Harga       : ',data.harga);
+   end;
+
+   Procedure Push(var Top:Pointer; databaru:RIsi);
+   var
+      baru : Pointer;
+
+   begin
+        new(baru);
+        baru^.info:=databaru;
+
+        if(Kosong(Top))
+          then
+              baru^.next:=nil
+          else
+              baru^.next:=Top;
+
+        Top:=baru;
+   end;
+
+   Procedure Pop(var Top:Pointer; var elemen:RIsi);
+   var
+      phapus : Pointer;
+
+   begin
+        phapus:=Top;
+        elemen:=phapus^.info;
+
+        if(Kosong(Top^.next))
+          then
+              Top:=nil
+          else
+              Top:=Top^.next;
+
+        dispose(phapus);
+   end;
+
+   Procedure Tampil(var Top:Pointer);
+   begin
+        clrscr();
+        if(not Kosong(Top))
+          then
+              begin
+                   repeat
+                         Pop(Top,elemen);
+                         Output(elemen);
+                   until(Kosong(Top));
+              end
+          else
+              write('Stack Kosong');
+        readkey();
+   end;
+
+begin
+     Inisialisasi(Top);
+     repeat
+           clrscr();
+           writeln('  MENU PENJUALAN TIKET');
+           writeln(' KERETA API PT TORABIKA');
+           writeln('------------------------');
+           writeln(' 1. Isi Data Pembeli');
+           writeln(' 2. Lihat Data Pembeli');
+           writeln(' 3. Keluar');
+           writeln('-----------------------');
+           write  ('    Pilihan = '); readln(pil);
+
+           case pil of
+                1: begin
+                        Isi(databaru);
+                        Push(Top,databaru);                        
+                   end;
+                2: begin
+                        Tampil(Top);
+                   end;
+           end;
+     until(pil=3);
+end.

@@ -1,0 +1,15 @@
+[Project]
+FileName=D:\Documents\Blueprint\SLTiket\SLTiket.dp
+Name=SLTiket
+MainUnit=D:\Documents\Blueprint\SLTiket\source.pas
+UnitCount=1
+ResFiles=D:\Documents\Blueprint\SLTiket\rsrc.rc
+NoConsole=0
+IsDll=0
+Icon=D:\Pictures\Icon\Aquabell2.ico
+CompilerOptions=
+IncludeDirs=
+ObjFile=
+[Unit1]
+FileName=D:\Documents\Blueprint\SLTiket\source.pas
+FileTime=1116806550

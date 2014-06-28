@@ -1,0 +1,15 @@
+[Project]
+FileName=D:\Documents\iProject\Pascal\MatrikIdentitas\MatrikIdentitas.dp
+Name=MatrikIdentitas
+MainUnit=D:\Documents\iProject\Pascal\MatrikIdentitas\source.pas
+UnitCount=1
+ResFiles=C:\Users\Imancha\Documents\iProject\Pascal\MatrikIdentitas\rsrc.rc
+NoConsole=0
+IsDll=0
+Icon=C:\Users\Imancha\Pictures\IcOn\Face.ico
+CompilerOptions=
+IncludeDirs=
+ObjFile=
+[Unit1]
+FileName=D:\Documents\iProject\Pascal\MatrikIdentitas\source.pas
+FileTime=1096509658

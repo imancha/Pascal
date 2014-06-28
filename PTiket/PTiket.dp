@@ -1,0 +1,15 @@
+[Project]
+FileName=D:\Documents\Blueprint\PTiket\PTiket.dp
+Name=PTiket
+MainUnit=D:\Documents\Blueprint\PTiket\source.pas
+UnitCount=1
+ResFiles=D:\Documents\Blueprint\PTiket\rsrc.rc
+NoConsole=0
+IsDll=0
+Icon=D:\Pictures\Icon\163.ico
+CompilerOptions=
+IncludeDirs=
+ObjFile=
+[Unit1]
+FileName=D:\Documents\Blueprint\PTiket\source.pas
+FileTime=1116320981

@@ -1,0 +1,15 @@
+[Project]
+FileName=C:\Users\Imancha\Documents\iProject\Pascal\BX\BX.dp
+Name=BX
+MainUnit=C:\Users\Imancha\Documents\iProject\Pascal\BX\source.pas
+UnitCount=1
+ResFiles=C:\Users\Imancha\Documents\iProject\Pascal\BX\rsrc.rc
+NoConsole=0
+IsDll=0
+Icon=C:\Users\Imancha\Pictures\IcOn\Star.ico
+CompilerOptions=
+IncludeDirs=
+ObjFile=
+[Unit1]
+FileName=C:\Users\Imancha\Documents\iProject\Pascal\BX\source.pas
+FileTime=1096960116

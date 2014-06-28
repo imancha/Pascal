@@ -1,0 +1,15 @@
+[Project]
+FileName=C:\Users\Imancha\Documents\iProject\Pascal\SegitigaBintang\SegitigaBintang.dp
+Name=SegitigaBintang
+MainUnit=C:\Users\Imancha\Documents\iProject\Pascal\SegitigaBintang\source.pas
+UnitCount=1
+ResFiles=C:\Users\Imancha\Documents\iProject\Pascal\SegitigaBintang\rsrc.rc
+NoConsole=0
+IsDll=0
+Icon=C:\Users\Imancha\Pictures\IcOn\1472.ico
+CompilerOptions=
+IncludeDirs=
+ObjFile=
+[Unit1]
+FileName=C:\Users\Imancha\Documents\iProject\Pascal\SegitigaBintang\source.pas
+FileTime=1095998036

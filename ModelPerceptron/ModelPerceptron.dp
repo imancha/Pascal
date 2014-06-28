@@ -1,0 +1,15 @@
+[Project]
+FileName=D:\Documents\Blueprint\ModelPerceptron\ModelPerceptron.dp
+Name=ModelPerceptron
+MainUnit=D:\Documents\Blueprint\ModelPerceptron\source.pas
+UnitCount=1
+ResFiles=D:\Documents\Blueprint\ModelPerceptron\rsrc.rc
+NoConsole=0
+IsDll=0
+Icon=D:\Pictures\Icon\220.ico
+CompilerOptions=
+IncludeDirs=
+ObjFile=
+[Unit1]
+FileName=D:\Documents\Blueprint\ModelPerceptron\source.pas
+FileTime=1116939879

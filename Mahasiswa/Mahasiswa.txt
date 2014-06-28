@@ -1,0 +1,348 @@
+// Nama  : Mohammad Abdul Iman Syah
+// NIM   : 10111143
+// Kelas : IF-13
+
+program mahasiswa;
+uses crt;
+
+const
+     MaksData = 8;
+     MaksNilai = 3;
+
+type
+    RecordNilai = record
+                  matkul : string;
+                  uts : integer;
+                  uas : integer;
+                  end;
+
+    DataNilai = array[1..MaksNilai] of RecordNilai;
+
+    RecordMahasiswa = record
+                      nim : string[5];
+                      nama : string;
+                      pilih : char;
+                      nilai : DataNilai;
+                      end;
+
+    DataMhs = array[1..MaksData] of RecordMahasiswa;
+
+var
+   data : DataMhs;
+   menu : integer;
+   jumlah : integer;
+   x : integer;
+
+   procedure Kotak(awalkolom,awalbaris,akhirkolom,akhirbaris:integer; latar,tulisan:byte);      {Kotak Menu}
+   var
+      i : integer;
+
+   begin
+        textcolor(tulisan);textbackground(latar);
+        window(awalkolom,awalbaris,akhirkolom,akhirbaris);clrscr;window(1,1,80,25);
+        gotoxy(awalkolom,awalbaris);write(#201);
+        gotoxy(akhirkolom,awalbaris);write(#187);
+        gotoxy(akhirkolom,akhirbaris);write(#188);
+        gotoxy(awalkolom,akhirbaris);write(#200);
+
+        for i:=awalkolom+1 to akhirkolom-1 do
+        begin
+             gotoxy(i,awalbaris);write(#205);
+             gotoxy(i,akhirbaris);write(#205);
+        end;
+
+        for i:=awalbaris+1 to akhirbaris-1 do
+        begin
+             gotoxy(akhirkolom,i);write(#186);
+             gotoxy(awalkolom,i);write(#186);
+        end;
+   end;
+
+   procedure Header;                                                                           {Header/Judul Tabel}
+   begin
+        gotoxy(2,1);textbackground(MAGENTA);write('    ');
+        gotoxy(7,1);textbackground(MAGENTA);write('       ');
+        gotoxy(15,1);textbackground(MAGENTA);write('                  ');
+        gotoxy(34,1);textbackground(MAGENTA);write('                   ');
+        gotoxy(54,1);textbackground(MAGENTA);write('              ');
+        gotoxy(69,1);textbackground(MAGENTA);write('     ');
+        gotoxy(75,1);textbackground(MAGENTA);write('     ');
+        gotoxy(3,1);textcolor(WHITE);write('NO');
+        gotoxy(9,1);textcolor(WHITE);write('NIM');
+        gotoxy(22,1);textcolor(WHITE);write('NAMA');
+        gotoxy(35,1);textcolor(WHITE);write('INPUT NILAI [Y/T]');
+        gotoxy(56,1);textcolor(WHITE);write('MATA KULIAH');
+        gotoxy(70,1);textcolor(WHITE);write('UTS');
+        gotoxy(76,1);textcolor(WHITE);write('UAS');
+   end;
+
+   procedure Baris (jumlah:integer);                                                           {Baris Tabel}
+   var
+      bbaris:integer;
+
+   begin
+        for bbaris:=2 to 3*jumlah+1 do
+        begin
+             if bbaris mod 2 = 0 then
+             begin
+                  gotoxy(2,bbaris);textbackground(CYAN);write('    ');
+                  gotoxy(7,bbaris);textbackground(CYAN);write('       ');
+                  gotoxy(15,bbaris);textbackground(CYAN);write('                  ');
+                  gotoxy(34,bbaris);textbackground(CYAN);write('                   ');
+                  gotoxy(54,bbaris);textbackground(CYAN);write('              ');
+                  gotoxy(69,bbaris);textbackground(CYAN);write('     ');
+                  gotoxy(75,bbaris);textbackground(CYAN);write('     ');
+             end
+             else
+             begin
+                  gotoxy(2,bbaris);textbackground(GREEN);write('    ');
+                  gotoxy(7,bbaris);textbackground(GREEN);write('       ');
+                  gotoxy(15,bbaris);textbackground(GREEN);write('                  ');
+                  gotoxy(34,bbaris);textbackground(GREEN);write('                   ');
+                  gotoxy(54,bbaris);textbackground(GREEN);write('              ');
+                  gotoxy(69,bbaris);textbackground(GREEN);write('     ');
+                  gotoxy(75,bbaris);textbackground(GREEN);write('     ');
+             end;
+        end;
+   end;
+
+   procedure InputNilai (i:integer; var nilai:DataNilai);                                 {Input Nilai Mahasiswa}
+   var
+      j : integer;
+
+   begin
+        for j:=1 to MaksNilai do
+        begin
+             gotoxy(55,((2*i)+(i-1))+(j-1)); readln(nilai[j].matkul);
+             gotoxy(70,((2*i)+(i-1))+(j-1)); readln(nilai[j].uts);
+             gotoxy(76,((2*i)+(i-1))+(j-1)); readln(nilai[j].uas);
+        end;
+   end;
+
+   procedure InputData (i:integer; var DMhs:DataMhs);                                     {Input Data Mahasiswa}
+   begin
+        gotoxy(8,((2*i)+(i-1))); readln(DMhs[i].nim);
+        gotoxy(16,((2*i)+(i-1))); readln(DMhs[i].nama);
+
+        repeat
+              gotoxy(43,((2*i)+(i-1))); readln(DMhs[i].pilih);
+              DMhs[i].pilih:=upcase(DMhs[i].pilih);
+        until((DMhs[i].pilih='Y') or (DMhs[i].pilih='T'));
+
+        if (DMhs[i].pilih='Y') then
+        begin
+             InputNilai(i,DMhs[i].nilai);
+        end;
+   end;
+
+   procedure OutputNilai (i:integer; var DMhs:DataMhs);                                   {Output NIlai Mahasiswa}
+   var
+      j : integer;
+
+   begin
+        if (DMhs[i].nilai[1].uts <> 0) then
+        begin
+             for j:=1 to MaksNilai do
+             begin
+                  gotoxy(55,((2*i)+(i-1))+(j-1)); writeln(DMhs[i].nilai[j].matkul);
+                  gotoxy(70,((2*i)+(i-1))+(j-1)); writeln(DMhs[i].nilai[j].uts);
+                  gotoxy(76,((2*i)+(i-1))+(j-1)); writeln(DMhs[i].nilai[j].uas);
+             end;
+        end;
+   end;
+
+   procedure OutputData (i:integer; var DMhs:DataMhs);                                   {Output Data Mahasiswa}
+   begin
+        gotoxy(3,((2*i)+(i-1))); writeln(i);
+        gotoxy(8,((2*i)+(i-1))); writeln(DMhs[i].nim);
+        gotoxy(16,((2*i)+(i-1))); writeln(DMhs[i].nama);
+        gotoxy(43,((2*i)+(i-1))); writeln(DMhs[i].pilih);
+   end;
+
+   procedure TambahDataMahasiswa (var DMhs:DataMhs);                                      {1. Tambah Data Mahasiswa}
+   var
+      i : integer;
+
+   begin
+        clrscr();
+        Header;
+        Baris(jumlah);
+
+        for i:=1 to jumlah do
+        begin
+             gotoxy(3,((2*i)+(i-1))); write(i);
+             InputData(i,DMhs);
+        end;
+   end;
+
+   procedure UbahDataMahasiswa (var DMhs:DataMhs);                                        {2. Ubah Data Mahasiswa Berdasarkan Index}
+   var
+      i: integer;
+
+   begin
+        clrscr();
+        repeat
+              Kotak(18,12,62,14,CYAN,WHITE);
+              gotoxy(20,13); write('Index (Nomor) Data yang Ingin Dirubah : '); readln(i);
+        until(i<=jumlah);
+
+        clrscr();                         // Tampilan Sebelum Ubah Data
+        Header;
+        Baris(jumlah);
+        OutputData(i,DMhs);
+        OutputNilai(i,DMhs);
+        readkey();
+
+        clrscr();                         // Mulai Ubah Data
+        Header;
+        Baris(jumlah);
+        gotoxy(3,((2*i)+(i-1))); write(i);
+        InputData(i,DMhs);
+   end;
+
+   procedure LihatDataMahasiswa (var DMhs:DataMhs);                                        {3. Lihat Data Mahasiswa Berdasarkan Index}
+   var
+      i:integer;
+
+   begin
+        clrscr();
+        repeat
+              Kotak(18,12,62,14,CYAN,WHITE);
+              gotoxy(20,13); write('Index (Nomor) Data yang Ingin Dilihat : '); readln(i);
+        until(i<=jumlah);
+
+        clrscr();
+        Header;
+        Baris(jumlah);
+        OutputData(i,DMhs);
+        OutputNilai(i,DMhs);
+        readkey();
+   end;
+
+   procedure CariDataMahasiswa (var DMhs:DataMhs);                                          {4. Cari Data Mahasiswa Berdasarkan NIM}
+   var
+      nim : string[5];
+      i : integer;
+
+   begin
+        clrscr();
+        Kotak(17,12,63,14,CYAN,WHITE);
+        gotoxy(19,13); write('Masukkan NIM Mahasiswa yang Dicari : '); readln(nim);
+
+        i:=1;
+        while ((nim<>DMhs[i].nim) and (i<jumlah)) do
+        begin
+             i:=i+1;
+        end;
+
+        if (nim=DMhs[i].nim) then
+        begin
+             clrscr();                            // Data Pencarian Ditemukan
+             Header;
+             Baris(jumlah);
+             OutputData(i,DMhs);
+             OutputNilai(i,DMhs);
+        end
+        else
+        begin
+             clrscr();
+             gotoxy(29,13); write('Data Tidak Ditemukan...!');
+        end;
+        readkey();
+   end;
+
+   procedure HapusDataMahasiswa (var DMhs:DataMhs);                                {5. Hapus Data Mahasiswa Berdasarkan Index}
+   var
+      hapus : integer;
+      i,j : integer;
+
+   begin
+        clrscr();
+        repeat
+              Kotak(18,12,62,14,CYAN,WHITE);
+              gotoxy(20,13); write('Index (Nomor) Data yang Ingin Dihapus : '); readln(hapus);
+        until(hapus<=jumlah);
+
+        for i:=1 to jumlah do
+        begin
+             if (i>=hapus) then                           {Replace Data Yang Dihapus (i>=hapus) dengan Data Setelahnya(i <-- i+1)}
+             begin
+                DMhs[i].nim := DMhs[i+1].nim;
+                DMhs[i].nama := DMhs[i+1].nama;
+                DMhs[i].pilih := DMhs[i+1].pilih;
+
+                for j:=1 to MaksNilai do
+                begin
+                     DMhs[i].nilai[j].matkul := DMhs[i+1].nilai[j].matkul;
+                     DMhs[i].nilai[j].uts := DMhs[i+1].nilai[j].uts;
+                     DMhs[i].nilai[j].uas := DMhs[i+1].nilai[j].uas;
+                end;
+             end;
+        end;
+
+        jumlah:=jumlah-1;                          // Jumlah Berkurang 1 karena ada data yang dihapus
+        clrscr();
+        gotoxy(31,13); write('Data Telah Dihapus...!');
+        readkey();
+   end;
+
+   procedure LihatSemuaDataMahasiswa (var DMhs:DataMhs);                                        {6. Lihat Semua Data Mahasiswa}
+   var
+      i : integer;
+
+   begin
+        clrscr();
+        Header;
+        Baris(jumlah);
+
+        for i:=1 to jumlah do
+        begin
+             OutputData(i,DMhs);
+          // OutputNilai(i,DMhs);
+        end;
+        readkey();
+   end;
+
+   procedure Keluar;                                                                    {7. Keluar Program}
+   begin
+        clrscr();
+        gotoxy(19,13); write('Terima Kasih Telah Menggunakan Program Ini.');
+        readkey();
+   end;
+
+begin
+     textbackground(YELLOW);clrscr();
+     repeat
+           Kotak(25,12,53,14,CYAN,WHITE);
+           gotoxy(27,13); write('Masukkan Jumlah Data : '); readln(jumlah);               {Input Jumlah Data}
+     until((jumlah>0) and (jumlah<=MaksData));
+
+     repeat
+           clrscr();
+           writeln('Jumlah Maksimum Data = ',MaksData);
+           writeln('Jumlah Data Yang Digunakan = ',jumlah);
+           gotoxy(73,25); write('imancha');
+           Kotak(22,7,58,19,YELLOW,WHITE);
+           gotoxy(27,8); writeln('MENU PROGRAM DATA MAHASISWA');
+           gotoxy(23,9); for x:=1 to 35 do write(#196);
+           gotoxy(26,10); writeln('1. Tambah Data Mahasiswa');
+           gotoxy(26,11); writeln('2. Ubah Data Mahasiswa');
+           gotoxy(26,12); writeln('3. Lihat Data Mahasiswa');
+           gotoxy(26,13); writeln('4. Cari Data Mahasiswa');
+           gotoxy(26,14); writeln('5. Hapus Data Mahasiswa');
+           gotoxy(26,15); writeln('6. Lihat Semua Data Mahasiswa');
+           gotoxy(26,16); writeln('7. Keluar');
+           gotoxy(23,17); for x:=1 to 35 do write(#196);
+           gotoxy(32,18); write('Pilihan Menu : '); readln(menu);                         {Input Pilihan Menu}
+
+           case menu of
+                1: TambahDataMahasiswa(data);
+                2: UbahDataMahasiswa(data);
+                3: LihatDataMahasiswa(data);
+                4: CariDataMahasiswa(data);
+                5: HapusDataMahasiswa(data);
+                6: LihatSemuaDataMahasiswa(data);
+                7: Keluar;
+           end;
+     until(menu=7);
+end.

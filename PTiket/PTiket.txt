@@ -1,0 +1,406 @@
+program ptiket;
+uses crt;
+
+type
+    DTiket = ^RTiket;
+    RTiket = record
+             nama       : string[15];
+             alamat     : string[12];
+             nohape     : string[12];
+             kodetujuan : string;
+             tujuan     : string;
+             kodekelas  : integer;
+             kelas      : string;
+             harga      : integer;
+             next       : DTiket;
+             end;
+
+var
+   data,awal,akhir : DTiket;
+   pilihan : integer;
+
+   {Interface}
+   procedure Kotak(awalkolom,awalbaris,akhirkolom,akhirbaris:integer; latar,tulisan:byte);      //Kotak Menu
+   var
+      i : integer;
+
+   begin
+        textcolor(tulisan);textbackground(latar);
+        window(awalkolom,awalbaris,akhirkolom,akhirbaris);clrscr;window(1,1,80,25);
+        gotoxy(awalkolom,awalbaris);write(#218);
+        gotoxy(akhirkolom,awalbaris);write(#191);
+        gotoxy(akhirkolom,akhirbaris);write(#217);
+        gotoxy(awalkolom,akhirbaris);write(#192);
+
+        for i:=awalkolom+1 to akhirkolom-1 do
+        begin
+             gotoxy(i,awalbaris);write(#196);
+             gotoxy(i,akhirbaris);write(#196);
+        end;
+
+        for i:=awalbaris+1 to akhirbaris-1 do
+        begin
+             gotoxy(akhirkolom,i);write(#179);
+             gotoxy(awalkolom,i);write(#179);
+        end;
+   end;
+
+   procedure Header;
+   begin
+        gotoxy(2,1);textbackground(CYAN);write('      NAMA       ');
+        gotoxy(20,1);textbackground(CYAN);write('    ALAMAT    ');
+        gotoxy(35,1);textbackground(CYAN);write('    NO. HP    ');
+        gotoxy(50,1);textbackground(CYAN);write('  TUJUAN ');
+        gotoxy(60,1);textbackground(CYAN);write('   KELAS   ');
+        gotoxy(72,1);textbackground(CYAN);write('  HARGA ');
+        writeln();
+   end;
+
+   {Prototype}
+   procedure InputData(var isi:DTiket);   //Input Data Pembeli
+   begin
+        clrscr();
+        Kotak(18,5,62,21,CYAN,WHITE);
+        gotoxy(31,6);writeln('INPUT DATA PEMBELI');
+        gotoxy(19,7);writeln('-------------------------------------------');
+        gotoxy(25,whereY+1);write('Nama        : '); readln(isi^.nama);
+        gotoxy(25,whereY+1);write('Alamat      : '); readln(isi^.alamat);
+        gotoxy(25,whereY+1);write('No. HP      : '); readln(isi^.nohape);
+
+        repeat
+              gotoxy(25,whereY+1);write('Kode Tujuan : '); readln(isi^.kodetujuan);
+              isi^.kodetujuan:=upcase(isi^.kodetujuan);
+        until((isi^.kodetujuan='CRB') or (isi^.kodetujuan='BDG') or (isi^.kodetujuan='JKT'));
+
+        if (isi^.kodetujuan='CRB') then isi^.tujuan:='Cirebon'
+        else if (isi^.kodetujuan='BDG') then isi^.tujuan:='Bandung'
+        else if (isi^.kodetujuan='JKT') then isi^.tujuan:='Jakarta';
+
+        repeat
+              gotoxy(25,whereY+1);write('Kode Kelas  : '); readln(isi^.kodekelas);
+        until((isi^.kodekelas>0) and (isi^.kodekelas<4));
+
+        case (isi^.kodekelas) of
+             1: isi^.kelas:='Eksekutif';
+             2: isi^.kelas:='Bisnis';
+             3: isi^.kelas:='Ekonomi';
+        end;
+
+        if(isi^.kodetujuan='CRB') then
+        begin
+             if(isi^.kodekelas=1) then isi^.harga:=100000
+             else if(isi^.kodekelas=2) then isi^.harga:=80000
+             else if(isi^.kodekelas=3) then isi^.harga:=45000;
+        end
+        else if(isi^.kodetujuan='BDG') then
+        begin
+             if(isi^.kodekelas=1) then isi^.harga:=150000
+             else if(isi^.kodekelas=2) then isi^.harga:=100000
+             else if(isi^.kodekelas=3) then isi^.harga:=80000;
+        end
+        else if(isi^.kodetujuan='JKT') then
+        begin
+             if(isi^.kodekelas=1) then isi^.harga:=200000
+             else if(isi^.kodekelas=2) then isi^.harga:=150000
+             else if(isi^.kodekelas=3) then isi^.harga:=100000;
+        end;
+        gotoxy(51,20);write('selesai...');
+        readkey();
+   end;
+
+   procedure LihatData(isi:DTiket);       //Lihat Data Pembeli
+   begin
+        textbackground(BLACK);
+        clrscr();
+        Header;
+        isi:=awal;
+        while (isi <> nil) do
+        begin
+             textbackground(BLACK);
+             gotoxy(3,whereY);write(isi^.nama);
+             gotoxy(21,whereY);write(isi^.alamat);
+             gotoxy(36,whereY);write(isi^.nohape);
+             gotoxy(51,whereY);write(isi^.tujuan);
+             gotoxy(61,whereY);write(isi^.kelas);
+             gotoxy(73,whereY);write(isi^.harga);
+             writeln();
+             isi:=isi^.next;
+        end;
+        readkey();
+   end;
+
+   {Penyisipan}
+   procedure SisipDepan(var awal,akhir:DTiket);     //Penyisipan di Depan
+   var
+      baru:DTiket;
+
+   begin
+        new(baru);
+        InputData(baru);
+
+        if (awal=nil) then
+        begin
+             baru^.next:=nil;
+             akhir:=baru;
+        end
+        else
+        begin
+             baru^.next:=awal;
+        end;
+        awal:=baru;
+   end;
+
+   procedure SisipBelakang(var awal,akhir:DTiket);     //Penyisipan di Belakang
+   var
+      baru:DTiket;
+
+   begin
+        new(baru);
+        InputData(baru);
+        baru^.next:=nil;
+
+        if (awal=nil) then
+        begin
+             awal:=baru;
+        end
+        else
+        begin
+             akhir^.next:=baru;
+        end;
+        akhir:=baru;
+   end;
+
+   procedure SisipTengah(var awal,akhir:DTiket);    //Penyisipan di Tengah
+   var
+      baru,bantu:DTiket;
+      ketemu:boolean;
+      sisip:string;
+
+   begin
+        if(awal=nil) then
+        begin
+             new(baru);
+             InputData(baru);
+             baru^.next:=nil;
+             awal:=baru;
+             akhir:=baru;
+        end
+        else
+        begin
+             clrscr();
+             LihatData(data);
+             Kotak(13,12,67,14,WHITE,BLACK);
+             gotoxy(15,13);write('Data Akan Dimasukkan Setelah Nama : '); readln(sisip);
+             bantu:=awal;
+             ketemu:=false;
+             while((not ketemu) and (bantu<>nil)) do
+             begin
+                  if(sisip=bantu^.nama) then ketemu:=true
+                  else bantu:=bantu^.next;
+             end;
+
+             if ketemu then
+             begin
+                  if(bantu=akhir) then SisipBelakang(awal,akhir)
+                  else
+                  begin
+                       new(baru);
+                       InputData(baru);
+                       baru^.next:=bantu^.next;
+                       bantu^.next:=baru;
+                  end;
+             end
+             else
+             begin
+                  gotoxy(30,16);textbackground(BLACK);textcolor(RED);write('Keyword Tidak Sesuai');
+                  readkey();
+             end;
+        end;
+   end;
+
+   {Penghapusan}
+   procedure HapusDepan(var awal,akhir:DTiket);    //Hapus Depan
+   var
+      phapus:DTiket;
+
+   begin
+        clrscr();
+        phapus:=awal;
+
+        if (awal=akhir) then
+        begin
+             awal:=nil;
+             akhir:=nil;
+        end
+        else
+        begin
+             awal:=awal^.next
+        end;
+        dispose(phapus);
+        gotoxy(33,14);write('Data Telah Dihapus');
+        readkey();
+   end;
+
+   procedure HapusBelakang(var awal,akhir:DTiket);         //Hapus Belakang
+   var
+      phapus:DTiket;
+
+   begin
+        clrscr();
+        phapus:=awal;
+
+        if (awal=akhir) then
+        begin
+             awal:=nil;
+             akhir:=nil;
+        end
+        else
+        begin
+             while (phapus^.next <> akhir) do
+             begin
+                  phapus:=phapus^.next;
+             end;
+
+             akhir:=phapus;
+             phapus:=phapus^.next;
+             akhir^.next:=nil;
+        end;
+        dispose(phapus);
+        gotoxy(33,14);write('Data Telah Dihapus');
+        readkey();
+   end;
+
+   procedure HapusTengah(var awal,akhir:DTiket);      //Hapus Tengah
+   var
+      phapus,bantu:DTiket;
+      ketemu:boolean;
+      hapus:string;
+
+   begin
+        clrscr();
+        phapus:=awal;
+
+        if(awal=akhir) then
+        begin
+             awal:=nil;
+             akhir:=nil;
+             dispose(phapus);
+             gotoxy(33,14);write('Data Telah Dihapus');
+             readkey();
+        end
+        else
+        begin
+             LihatData(data);
+             Kotak(18,12,62,14,WHITE,BLACK);
+             gotoxy(20,13);write('Nama Yang Akan Dihapus : '); readln(hapus);
+             ketemu:=false;
+             while((not ketemu) and (phapus<>nil)) do
+             begin
+                  if(hapus=phapus^.nama) then ketemu:=true
+                  else phapus:=phapus^.next;
+             end;
+
+             if ketemu then
+             begin
+                  if (phapus=awal) then HapusDepan(awal,akhir)
+                  else if (phapus=akhir) then HapusBelakang(awal,akhir)
+                  else
+                      begin
+                           bantu:=awal;
+                           while (bantu^.next<>phapus) do bantu:=bantu^.next;
+
+                           bantu^.next:=phapus^.next;
+                           dispose(phapus);
+
+                           clrscr();
+                           gotoxy(33,16);write('Data Telah Dihapus');
+                           readkey();
+                      end;
+             end
+             else
+             begin
+                  gotoxy(30,16);textbackground(BLACK);textcolor(RED);write('Keyword Tidak Sesuai');
+                  readkey();
+             end;
+        end;
+   end;
+
+   {Menu}
+   procedure Menu(var pil:integer);     //Menu Utama
+   begin
+        clrscr();
+        Kotak(27,8,52,18,YELLOW,WHITE);
+        gotoxy(29,9);     writeln(' MENU PENJUALAN TIKET');
+        gotoxy(29,whereY);writeln('PT KERETA API TORABIKA');
+        gotoxy(28,whereY);writeln('========================');
+        gotoxy(29,whereY);writeln('1. Sisip Data Pembeli');
+        gotoxy(29,whereY);writeln('2. Hapus Data Pembeli');
+        gotoxy(29,whereY);writeln('3. Lihat Data Pembeli');
+        gotoxy(29,whereY);writeln('4. Keluar');
+        gotoxy(28,whereY);writeln('========================');
+        gotoxy(29,whereY);write  ('   Pilihan : '); readln(pil);
+   end;
+
+   procedure MenuSisip;    //Menu Penyisipan
+   var
+      pil : integer;
+
+   begin
+        repeat
+              clrscr();
+              Kotak(27,8,53,17,BLACK,WHITE);
+              gotoxy(29,9);     writeln('  MENU PENYISIPAN DATA');
+              gotoxy(28,whereY);writeln('=========================');
+              gotoxy(29,whereY);writeln('1. Sisip di Depan');
+              gotoxy(29,whereY);writeln('2. Sisip di Tengah');
+              gotoxy(29,whereY);writeln('3. Sisip di Belakang');
+              gotoxy(29,whereY);writeln('4. Kembali ke Menu Utama');
+              gotoxy(28,whereY);writeln('=========================');
+              gotoxy(29,whereY);write  ('   Pilihan : '); readln(pil);
+              case pil of
+                   1: SisipDepan(awal,akhir);
+                   2: SisipTengah(awal,akhir);
+                   3: SisipBelakang(awal,akhir);
+              end;
+        until(pil=4);
+   end;
+
+   procedure MenuHapus;    //Menu Penghapusan
+   var
+      pil : integer;
+
+   begin
+        repeat
+              clrscr();
+              Kotak(27,8,53,17,BLACK,WHITE);
+              gotoxy(28,9);     writeln('  MENU PENGHAPUSAN DATA');
+              gotoxy(28,whereY);writeln('=========================');
+              gotoxy(29,whereY);writeln('1. Hapus di Depan');
+              gotoxy(29,whereY);writeln('2. Hapus di Tengah');
+              gotoxy(29,whereY);writeln('3. Hapus di Belakang');
+              gotoxy(29,whereY);writeln('4. Kembali ke Menu Utama');
+              gotoxy(28,whereY);writeln('=========================');
+              gotoxy(29,whereY);write  ('   Pilihan : '); readln(pil);
+              case pil of
+                   1: HapusDepan(awal,akhir);
+                   2: HapusTengah(awal,akhir);
+                   3: HapusBelakang(awal,akhir);
+              end;
+        until(pil=4);
+   end;
+
+begin
+     {Penciptaan List}
+     awal:=nil;
+     akhir:=nil;
+
+     {Menu Utama}
+     repeat
+           Menu(pilihan);
+           case pilihan of
+                1: MenuSisip;
+                2: MenuHapus;
+                3: LihatData(data);
+           end;
+     until(pilihan=4);
+end.

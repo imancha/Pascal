@@ -1,0 +1,15 @@
+[Project]
+FileName=C:\Users\Imancha\Documents\iProject\Pascal\Bintangxx\Bintang++.dp
+Name=Bintangxx
+MainUnit=C:\Users\Imancha\Documents\iProject\Pascal\Bintangxx\source.pas
+UnitCount=1
+ResFiles=C:\Users\Imancha\Documents\iProject\Pascal\Bintangxx\rsrc.rc
+NoConsole=0
+IsDll=0
+Icon=C:\Users\Imancha\Pictures\Icon\96.ico
+CompilerOptions=
+IncludeDirs=
+ObjFile=
+[Unit1]
+FileName=C:\Users\Imancha\Documents\iProject\Pascal\Bintangxx\source.pas
+FileTime=1098560709

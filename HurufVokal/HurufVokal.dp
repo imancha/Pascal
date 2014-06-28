@@ -1,0 +1,15 @@
+[Project]
+FileName=C:\Users\Imancha\Documents\Pascal\HurufVokal\HurufVokal.dp
+Name=HurufVokal
+MainUnit=C:\Users\Imancha\Documents\Pascal\HurufVokal\source.pas
+UnitCount=1
+ResFiles=C:\Users\Imancha\Documents\Pascal\HurufVokal\rsrc.rc
+NoConsole=0
+IsDll=0
+Icon=C:\Users\Imancha\Pictures\IcOn\1.ico
+CompilerOptions=
+IncludeDirs=
+ObjFile=
+[Unit1]
+FileName=C:\Users\Imancha\Documents\Pascal\HurufVokal\source.pas
+FileTime=1095284253

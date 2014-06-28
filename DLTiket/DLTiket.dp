@@ -1,0 +1,15 @@
+[Project]
+FileName=D:\Documents\Blueprint\DLTiket\DLTiket.dp
+Name=DLTiket
+MainUnit=D:\Documents\Blueprint\DLTiket\source.pas
+UnitCount=1
+ResFiles=D:\Documents\Blueprint\DLTiket\rsrc.rc
+NoConsole=0
+IsDll=0
+Icon=D:\Pictures\Icon\heart.ico
+CompilerOptions=
+IncludeDirs=
+ObjFile=
+[Unit1]
+FileName=D:\Documents\Blueprint\DLTiket\source.pas
+FileTime=1117370938

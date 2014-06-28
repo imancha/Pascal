@@ -1,0 +1,15 @@
+[Project]
+FileName=D:\Documents\iProject\Pascal\LinkedList\LinkedList.dp
+Name=LinkedList
+MainUnit=D:\Documents\iProject\Pascal\LinkedList\source.pas
+UnitCount=1
+ResFiles=D:\Documents\iProject\Pascal\LinkedList\rsrc.rc
+NoConsole=0
+IsDll=0
+Icon=D:\Pictures\Icon\Star.ico
+CompilerOptions=
+IncludeDirs=
+ObjFile=
+[Unit1]
+FileName=D:\Documents\iProject\Pascal\LinkedList\source.pas
+FileTime=1118745645

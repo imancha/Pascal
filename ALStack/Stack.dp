@@ -1,0 +1,15 @@
+[Project]
+FileName=D:\Documents\Blueprint\ALStack\Stack.dp
+Name=Stack
+MainUnit=D:\Documents\Blueprint\ALStack\source.pas
+UnitCount=1
+ResFiles=D:\Documents\Blueprint\ALStack\rsrc.rc
+NoConsole=0
+IsDll=0
+Icon=D:\Pictures\Icon\225.ico
+CompilerOptions=
+IncludeDirs=
+ObjFile=
+[Unit1]
+FileName=D:\Documents\Blueprint\ALStack\source.pas
+FileTime=1118898343

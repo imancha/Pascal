@@ -1,0 +1,15 @@
+[Project]
+FileName=C:\Users\Imancha\Documents\iProject\Pascal\BintangKanan\BintangKanan.dp
+Name=BintangKanan
+MainUnit=C:\Users\Imancha\Documents\iProject\Pascal\BintangKanan\source.pas
+UnitCount=1
+ResFiles=C:\Users\Imancha\Documents\iProject\Pascal\BintangKanan\rsrc.rc
+NoConsole=0
+IsDll=0
+Icon=C:\Users\Imancha\Pictures\IcOn\Star.ico
+CompilerOptions=
+IncludeDirs=
+ObjFile=
+[Unit1]
+FileName=C:\Users\Imancha\Documents\iProject\Pascal\BintangKanan\source.pas
+FileTime=1096509065

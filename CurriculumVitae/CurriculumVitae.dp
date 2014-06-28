@@ -1,0 +1,15 @@
+[Project]
+FileName=C:\Users\Imancha\Documents\iProject\Pascal\CurriculumVitae\CurriculumVitae.dp
+Name=CurriculumVitae
+MainUnit=C:\Users\Imancha\Documents\iProject\Pascal\CurriculumVitae\source.pas
+UnitCount=1
+ResFiles=C:\Users\Imancha\Documents\Pascal\CurriculumVitae\rsrc.rc
+NoConsole=0
+IsDll=0
+Icon=C:\Users\Imancha\Pictures\IcOn\Internet.ico
+CompilerOptions=
+IncludeDirs=
+ObjFile=
+[Unit1]
+FileName=C:\Users\Imancha\Documents\iProject\Pascal\CurriculumVitae\source.pas
+FileTime=1095079170

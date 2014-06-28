@@ -1,0 +1,15 @@
+[Project]
+FileName=D:\Documents\iProject\Pascal\StackListTiket\StackListTiket.dp
+Name=StackListTiket
+MainUnit=D:\Documents\iProject\Pascal\StackListTiket\source.pas
+UnitCount=1
+ResFiles=D:\Documents\iProject\Pascal\StackListTiket\rsrc.rc
+NoConsole=0
+IsDll=0
+Icon=D:\Pictures\Icon\98.ico
+CompilerOptions=
+IncludeDirs=
+ObjFile=
+[Unit1]
+FileName=D:\Documents\iProject\Pascal\StackListTiket\source.pas
+FileTime=1119160430
